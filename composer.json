@@ -1,0 +1,24 @@
+{
+    "name": "diego-lap/app-salon_php_mvc_js_sass",
+    "description": "Proyecto PHP 8, MVC, SQL, SASS, Gulp",
+    "type": "project",
+    "autoload":{
+        "psr-4": {
+            "MVC\\": "./",
+            "Controllers\\": "./Controllers/",
+            "Model\\": "./Models/",
+            "Classes\\": "./Classes/"
+
+        }
+    },
+    "authors": [
+        {
+            "name": "dart94",
+            "email": "167586944+dart94@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
