@@ -52,3 +52,33 @@ $router->post('/servicios/eliminar',[ServicioController::class,'eliminar']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
+
+// Health check endpoint
+if ($_SERVER['REQUEST_URI'] === '/health') {
+    $health = true;
+    $status = ['database' => false];
+    
+    // Check database connection
+    $conn = @mysqli_connect(
+        getenv('DB_HOST'),
+        getenv('DB_USER'),
+        getenv('DB_PASSWORD'),
+        getenv('DB_NAME')
+    );
+    
+    if ($conn) {
+        $status['database'] = true;
+        mysqli_close($conn);
+    } else {
+        $health = false;
+    }
+    
+    header('Content-Type: application/json');
+    http_response_code($health ? 200 : 503);
+    echo json_encode([
+        'status' => $health ? 'healthy' : 'unhealthy',
+        'checks' => $status,
+        'timestamp' => date('c')
+    ]);
+    exit;
+}
