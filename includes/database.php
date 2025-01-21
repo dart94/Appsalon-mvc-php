@@ -1,4 +1,3 @@
-<?php
 function connectToDatabase() {
     $maxAttempts = 3;
     $attempt = 1;
@@ -41,23 +40,4 @@ function connectToDatabase() {
     }
     
     return false;
-}
-
-// Intentar la conexión
-$db = connectToDatabase();
-
-// Manejar el error si la conexión falla
-if (!$db) {
-    if (php_sapi_name() === 'cli') {
-        echo "Error: No se pudo conectar a MySQL después de varios intentos.\n";
-        exit(1);
-    } else {
-        header('HTTP/1.1 503 Service Temporarily Unavailable');
-        header('Content-Type: application/json');
-        echo json_encode([
-            'error' => 'Database connection failed',
-            'message' => 'El servicio no está disponible temporalmente. Por favor, intente más tarde.'
-        ]);
-        exit;
-    }
 }
